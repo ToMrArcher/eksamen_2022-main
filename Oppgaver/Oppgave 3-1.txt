@@ -1,2 +1,0 @@
-Man må legge til secrets i GitHub repoet, som er DockerHub brukernavn og DockerHub Token. Jeg måtte også endre fra
-master til main, på grunn av at jeg lagde hoved branches som master istedenfor main.

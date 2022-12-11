@@ -1,2 +1,0 @@
-Settings - Branches - add branch protection rule - name pattern: master (or whatever branch you want to protect) - require pull request before merging - require approvals 1 - require status checks to pass before merging
-
