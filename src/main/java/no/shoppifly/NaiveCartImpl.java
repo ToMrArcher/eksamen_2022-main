@@ -26,6 +26,7 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
 
     @Override
     public Cart update(Cart cart) {
+        meterRegistry.counter("carts").increment();
         if (cart.getId() == null) {
             cart.setId(UUID.randomUUID().toString());
         }
