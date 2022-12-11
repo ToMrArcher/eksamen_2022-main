@@ -13,7 +13,7 @@ import java.util.*;
 class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReadyEvent> {
 
     private final Map<String, Cart> shoppingCarts = new HashMap<>();
-    private final MeterRegistry meterRegistry;
+    private MeterRegistry meterRegistry;
 
     @Autowired
     public NaiveCartImpl(MeterRegistry meterRegistry){
@@ -26,7 +26,7 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
 
     @Override
     public Cart update(Cart cart) {
-        meterRegistry.counter("carts").increment();
+        meterRegistry.counter("carts_added").increment();
         if (cart.getId() == null) {
             cart.setId(UUID.randomUUID().toString());
         }
@@ -56,7 +56,13 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        Gauge.builder("account_count", shoppingCarts,
-                b -> b.values().size()).register(meterRegistry);
+        Gauge.builder("carts_added_gauge", meterRegistry.get("carts_added"), c -> c.counter().count())
+                .description("Number of carts added")
+                .register(meterRegistry);
+
+        // Create a gauge for the number of checkouts
+        Gauge.builder("checkouts_gauge", meterRegistry.get("checkout"), c -> c.counter().count())
+                .description("Number of checkouts")
+                .register(meterRegistry);
     }
 }
