@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "sye003-exam-s3bucket"
+    bucket = "analytics-sye003-exam-s3bucket"
     key    = "shopifly.state"
     region = "eu-west-1"
   }
