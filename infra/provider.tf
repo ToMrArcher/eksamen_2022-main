@@ -6,8 +6,8 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "analytics-sye003-exam-s3bucket"
-    key    = "shopifly.state"
-    region = "eu-west-1"
+    bucket = "pgr301-2021-terraform-state"
+    key    = "<student-navn>/apprunner-lab.state"
+    region = "eu-north-1"
   }
 }
